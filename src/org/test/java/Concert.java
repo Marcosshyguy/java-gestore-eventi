@@ -40,7 +40,7 @@ public class Concert extends Event {
     }
 
     public String getFormattedPrice(){
-        DecimalFormat format = new DecimalFormat("##.##");
+        DecimalFormat format = new DecimalFormat("##.##$");
         String formattedPrice = format.format(price);
         return formattedPrice;
     }
@@ -60,6 +60,6 @@ public class Concert extends Event {
     @Override
     public String toString() {
         return "The concert " + getTitle() + " will be at " +  super.formatDate(getDate()) + " " + getFormattedHour() +
-                  ". The concert price is " +getFormattedPrice() + "$";
+                  ". The concert price is " + getFormattedPrice();
     }
 }
