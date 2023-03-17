@@ -22,7 +22,7 @@ public class Event {
 
         this.capacity = capacity;
         this.title = title;
-        this.date = formatDate(date);
+        this.date = date;
         reservationNumber = 0;
     }
 
@@ -45,7 +45,7 @@ public class Event {
     }
 
     public void setDate(LocalDate date) {
-        this.date = formatDate(date);
+        this.date = date;
     }
 
     public int getReservationNumber() {
@@ -53,8 +53,9 @@ public class Event {
     }
 //    Methods
 
-    public LocalDate formatDate(LocalDate date){
-       return LocalDate.parse(date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+    public String formatDate(LocalDate date){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MMMM/yyyy");
+        return date.format(formatter);
     }
 
     public void book() throws RuntimeException {
@@ -84,7 +85,7 @@ public class Event {
     public String toString() {
         return "Event{" +
                 "title='" + title + '\'' +
-                ", date=" + date +
+                ", date=" + formatDate(date) +
                 '}';
     }
 }
