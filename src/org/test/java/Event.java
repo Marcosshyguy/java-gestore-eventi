@@ -14,10 +14,10 @@ public class Event {
 //    DO COSTUM EXCEPTION
     public Event(int capacity, String title, LocalDate date) throws RuntimeException {
         if(date.isBefore(LocalDate.now())){
-            throw new RuntimeException();
+            throw new RuntimeException("The event has already happened");
         }
         if (capacity<=0){
-            throw new RuntimeException();
+            throw new RuntimeException("The capacity must be bigger than 0");
         }
 
         this.capacity = capacity;
