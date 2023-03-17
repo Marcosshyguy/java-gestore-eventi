@@ -54,7 +54,7 @@ public class Event {
 //    Methods
 
     public String formatDate(LocalDate date){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MMMM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return date.format(formatter);
     }
 

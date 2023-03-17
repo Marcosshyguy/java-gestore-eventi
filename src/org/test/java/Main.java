@@ -1,7 +1,11 @@
 package org.test.java;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.math.BigDecimal;
 import java.util.Scanner;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -24,11 +28,17 @@ public class Main {
         System.out.print("Add how many people the building can hold: ");
         int capacity = Integer.parseInt(input.nextLine());
 
+//        setting hour and price
+        BigDecimal price =  new BigDecimal("1000.67900");
+        LocalTime hour = LocalTime.of(20, 30);
+
+
 //        creating the event if all the arguments the constructor needs are correct
+
         Event event = null;
         try {
-            event = new Event(capacity,name,date);
-            System.out.println( event.toString());
+            event = new Concert(capacity,name,date,hour,price);
+            System.out.println(event.toString());
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
         }
@@ -71,7 +81,7 @@ public class Main {
                     boolean flag3 = false;
 
                     while(!flag3){
-                        System.out.println("Do you want to buy tickets? y/n");
+                        System.out.println("Do you want to cancel any reservation? y/n");
                         String answer2 = input.nextLine().toLowerCase();
                         if (answer2.equals("y")){
                             flag3 = true;
