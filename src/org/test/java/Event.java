@@ -1,6 +1,7 @@
 package org.test.java;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Event {
 //      Attributes
@@ -18,10 +19,10 @@ public class Event {
         if (capacity<=0){
             throw new RuntimeException();
         }
-        date.format()
+
         this.capacity = capacity;
         this.title = title;
-        this.date = date;
+        this.date = formatDate(date);
         reservationNumber = 0;
     }
 
@@ -44,7 +45,7 @@ public class Event {
     }
 
     public void setDate(LocalDate date) {
-        this.date = date;
+        this.date = formatDate(date);
     }
 
     public int getReservationNumber() {
@@ -52,5 +53,38 @@ public class Event {
     }
 //    Methods
 
+    public LocalDate formatDate(LocalDate date){
+       return LocalDate.parse(date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+    }
 
+    public void book() throws RuntimeException {
+        if(date.isBefore(LocalDate.now())){
+            throw new RuntimeException();
+        }
+        if(reservationNumber > capacity){
+            throw new RuntimeException();
+        }
+
+        reservationNumber++;
+    }
+
+    public void callOff() throws RuntimeException {
+        if(date.isBefore(LocalDate.now())){
+            throw new RuntimeException();
+        }
+        if(reservationNumber == 0){
+            throw new RuntimeException();
+        }
+        reservationNumber--;
+    }
+
+//    override
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "title='" + title + '\'' +
+                ", date=" + date +
+                '}';
+    }
 }
