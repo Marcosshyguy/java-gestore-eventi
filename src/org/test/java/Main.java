@@ -24,6 +24,7 @@ public class Main {
         System.out.print("Add how many people the building can hold: ");
         int capacity = Integer.parseInt(input.nextLine());
 
+//        creating the event if all the arguments the constructor needs are correct
         Event event = null;
         try {
             event = new Event(capacity,name,date);
@@ -34,30 +35,72 @@ public class Main {
 
 
         if(event != null){
-                //        asking for add reservation
-                System.out.println("How many tickets do you want to buy for this event");
-                int ticketsAmount = Integer.parseInt(input.nextLine());
+            boolean flag = false;
+            boolean flag2 = false;
 
-                for (int i = 0; i < ticketsAmount; i++) {
-                    event.book();
+            while(!flag){
+                System.out.println("Do you want to buy tickets? y/n");
+                String answer = input.nextLine().toLowerCase();
+                if (answer.equals("y")){
+                    flag = true;
+                    flag2 = true;
+                    //        asking for add reservation
+                    System.out.println("How many tickets do you want to buy for this event");
+                    int ticketsAmount = Integer.parseInt(input.nextLine());
+
+                    for (int i = 0; i < ticketsAmount; i++) {
+                        try {
+                            event.book();
+                        } catch (RuntimeException e) {
+                            System.out.println(e.getMessage());
+                        }
+                    }
+
+                    //        display
+                    System.out.println("Now you have" + event.getReservationNumber()+ " seats" + "// remaining available seats " + (event.getCapacity()-event.getReservationNumber()) );
+
+                } else if (answer.equals("n")) {
+                    flag = true;
+                    System.out.println("Good see you soon");
+                }else{
+                    System.out.println("Choose y/n");
                 }
+            }
 
-            //        display
-                System.out.println(event.getReservationNumber() + "// remaining seats" + (event.getCapacity()-event.getReservationNumber()) );
+            if(flag2){
+                    boolean flag3 = false;
 
-            //              asking for call off reservation
-                System.out.println("How many reservation do you want to call off");
-                int reservationCalledOff = Integer.parseInt(input.nextLine());
+                    while(!flag3){
+                        System.out.println("Do you want to buy tickets? y/n");
+                        String answer2 = input.nextLine().toLowerCase();
+                        if (answer2.equals("y")){
+                            flag3 = true;
+                            //              asking for call off reservation
+                            System.out.println("How many reservation do you want to call off?");
+                            int reservationCalledOff = Integer.parseInt(input.nextLine());
 
-                for (int i = 0; i < reservationCalledOff; i++) {
-                    event.callOff();
+                            for (int i = 0; i < reservationCalledOff; i++) {
+                                try {
+                                    event.callOff();
+                                } catch (RuntimeException e) {
+                                    System.out.println(e.getMessage());
+                                    break;
+                                }
+                            }
+
+                            //        display
+                            System.out.println("Now you have "+ event.getReservationNumber()+ " seats" + "// remaining available seats " + (event.getCapacity()-event.getReservationNumber()) );
+                        }else if (answer2.equals("n")) {
+                            flag3 = true;
+                            System.out.println("Good see you soon");
+                        }else{
+                            System.out.println("Choose y/n");
+                        }
+                    }
                 }
-
-            //        display
-                System.out.println(event.getReservationNumber() + "// remaining seats" + (event.getCapacity()-event.getReservationNumber()) );
 
         }else {
-            System.out.println("Qualcosa è andato storto ritenta");
+            System.out.println("Something went wrong, retry");
         }
 
         input.close();

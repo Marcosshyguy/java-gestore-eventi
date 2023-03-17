@@ -14,7 +14,7 @@ public class Event {
 //    DO COSTUM EXCEPTION
     public Event(int capacity, String title, LocalDate date) throws RuntimeException {
         if(date.isBefore(LocalDate.now())){
-            throw new RuntimeException("The event has already happened");
+            throw new RuntimeException("The event has already occurred");
         }
         if (capacity<=0){
             throw new RuntimeException("The capacity must be bigger than 0");
@@ -60,22 +60,24 @@ public class Event {
 
     public void book() throws RuntimeException {
         if(date.isBefore(LocalDate.now())){
-            throw new RuntimeException();
+            throw new RuntimeException("The event has already occurred");
         }
         if(reservationNumber > capacity){
-            throw new RuntimeException();
+            throw new RuntimeException("Your choice overcome the seats availability");
         }
 
         reservationNumber++;
+
     }
 
     public void callOff() throws RuntimeException {
         if(date.isBefore(LocalDate.now())){
-            throw new RuntimeException();
+            throw new RuntimeException("The event has already occurred");
         }
-        if(reservationNumber == 0){
-            throw new RuntimeException();
+        if(reservationNumber <= 0){
+            throw new RuntimeException("Yuo have less reservation booked");
         }
+//
         reservationNumber--;
     }
 
