@@ -10,7 +10,7 @@ public class EventPlanner {
 
     public EventPlanner(String title) {
         this.title = title;
-        events = new ArrayList<>();
+        this.events = new ArrayList<>();
     }
 
     public EventPlanner(String title, List<Event> event) {
@@ -40,6 +40,16 @@ public class EventPlanner {
         }
         return dataList;
     }
+
+    public int eventsCounter(){
+        return  events.size();
+    }
+
+    public boolean eventsRemover(){
+        return  events.removeAll(events);
+    }
+
+
 
     @Override
     public String toString() {

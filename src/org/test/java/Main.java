@@ -1,9 +1,8 @@
 package org.test.java;
 
-import java.text.DecimalFormat;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.math.BigDecimal;
 import java.util.Scanner;
 
 
@@ -11,7 +10,9 @@ public class Main {
     public static void main(String[] args) {
         EventPlanner planner = new EventPlanner("Main list");
         Scanner input = new Scanner(System.in);
-        for (int i = 0; i < 2; i++) {
+
+//        this loop is for testing the methods addToList of EventPlanner
+//        for (int i = 0; i < 3; i++) {
             //        asking for arguments of Event constructor
 //        event name
             System.out.print("Add event name: ");
@@ -30,12 +31,12 @@ public class Main {
             System.out.print("Add how many people the building can hold: ");
             int capacity = Integer.parseInt(input.nextLine());
 
-//        setting hour and price
+//        setting hour and price manually
             BigDecimal price =  new BigDecimal("1000.67900");
             LocalTime hour = LocalTime.of(20, 30);
 
 
-//        creating the event if all the arguments the constructor needs are correct
+//        creating an event if all the constructor's arguments  are correct
 
             Event event = null;
             try {
@@ -45,14 +46,22 @@ public class Main {
                 System.out.println(e.getMessage());
             }
 
+//        Bonus**************************************************
+//      BONUS testing if the Event Planner can add multiple events
             planner.addToList(event);
-        }
+//        }
 
-        System.out.println(planner.getFilteredEventByData(LocalDate.of(2024,10,10)));
-        System.out.println(planner.toString());
+//      BONUS testing if the event planner filters by date and counts how many they are
+        System.out.println("You have " + planner.eventsCounter() + " events");
 
+//        System.out.println(planner.getFilteredEventByData(LocalDate.of(2024,10,10)));
+//        System.out.println(planner.toString());
+//        System.out.println(planner.eventsRemover());
+//        System.out.println("Now you have " + planner.eventsCounter() + " events");
+//        /Bonus***************************************************
 
-//
+//          section where the costumer decide how many tickets want to buy and then if he want to call them off
+
 //        if(event != null){
 //            boolean flag = false;
 //            boolean flag2 = false;
