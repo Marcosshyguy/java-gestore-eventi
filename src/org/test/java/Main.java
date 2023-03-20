@@ -12,7 +12,7 @@ public class Main {
         Scanner input = new Scanner(System.in);
 
 //        this loop is for testing the methods addToList of EventPlanner
-//        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {
             //        asking for arguments of Event constructor
 //        event name
             System.out.print("Add event name: ");
@@ -49,13 +49,13 @@ public class Main {
 //        Bonus**************************************************
 //      BONUS testing if the Event Planner can add multiple events
             planner.addToList(event);
-//        }
+        }
 
 //      BONUS testing if the event planner filters by date and counts how many they are
         System.out.println("You have " + planner.eventsCounter() + " events");
 
 //        System.out.println(planner.getFilteredEventByData(LocalDate.of(2024,10,10)));
-//        System.out.println(planner.toString());
+        System.out.println(planner.toString());
 //        System.out.println(planner.eventsRemover());
 //        System.out.println("Now you have " + planner.eventsCounter() + " events");
 //        /Bonus***************************************************

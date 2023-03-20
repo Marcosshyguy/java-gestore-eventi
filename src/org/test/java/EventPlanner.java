@@ -13,10 +13,10 @@ public class EventPlanner {
         this.events = new ArrayList<>();
     }
 
-    public EventPlanner(String title, List<Event> event) {
+    public EventPlanner(String title, List<Event> events) {
         this.title = title;
         this.events = new ArrayList<>();
-        this.events.addAll(event);
+        this.events.addAll(events);
     }
 
     public String getTitle() {
@@ -49,14 +49,21 @@ public class EventPlanner {
         return  events.removeAll(events);
     }
 
-
+    public boolean removeEvent(Event e){
+        return events.remove(e);
+    }
 
     @Override
     public String toString() {
-        return "EventPlanner{" +
-                "title='" + title + '\'' +
-                ", event=" + events +
-                '}';
+        String string = getTitle() + "\n";
+        List<Event> orderedEvents = new ArrayList<>();
+        orderedEvents.addAll(events);
+        EventComparatorByDataAsc comparator = new EventComparatorByDataAsc();
+        orderedEvents.sort(comparator);
+        for (Event e : orderedEvents){
+            string += e.toString() + "/n";
+        }
+        return string;
     }
 
 

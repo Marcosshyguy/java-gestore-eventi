@@ -2,8 +2,9 @@ package org.test.java;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
-public class Event {
+public class Event implements Comparable<Event> {
 //      Attributes
     private int capacity;
     private String title;
@@ -12,12 +13,15 @@ public class Event {
 
 //     Constructor
 //    DO COSTUM EXCEPTION
-    public Event(int capacity, String title, LocalDate date) throws RuntimeException {
+    public Event(int capacity, String title, LocalDate date) throws RuntimeException, NullPointerException {
+        if (date == null){
+            throw new NullPointerException("Date must not be null");
+        }
         if(date.isBefore(LocalDate.now())){
-            throw new RuntimeException("The event has already occurred");
+            throw new IllegalArgumentException("The event has already occurred");
         }
         if (capacity<=0){
-            throw new RuntimeException("The capacity must be bigger than 0");
+            throw new IllegalArgumentException("The capacity must be bigger than 0");
         }
 
         this.capacity = capacity;
@@ -44,12 +48,22 @@ public class Event {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDate date) throws NullPointerException, IllegalArgumentException {
+        if (date == null){
+            throw new NullPointerException("Date must not be null");
+        }
+        if(date.isBefore(LocalDate.now())){
+            throw new IllegalArgumentException("The event has already occurred");
+        }
         this.date = date;
     }
 
     public int getReservationNumber() {
         return reservationNumber;
+    }
+
+    public int getAvailableSeats(){
+        return capacity-reservationNumber;
     }
 //    Methods
 
@@ -58,11 +72,11 @@ public class Event {
         return date.format(formatter);
     }
 
-    public void book() throws RuntimeException {
+    public void book() throws IllegalStateException {
         if(date.isBefore(LocalDate.now())){
             throw new RuntimeException("The event has already occurred");
         }
-        if(reservationNumber > capacity){
+        if(getAvailableSeats() < 1){
             throw new RuntimeException("Your choice overcome the seats availability");
         }
 
@@ -90,4 +104,32 @@ public class Event {
                 ", date=" + formatDate(date) +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Event event = (Event) o;
+
+        if (capacity != event.capacity) return false;
+        if (reservationNumber != event.reservationNumber) return false;
+        if (!Objects.equals(title, event.title)) return false;
+        return date.equals(event.date);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = capacity;
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + date.hashCode();
+        result = 31 * result + reservationNumber;
+        return result;
+    }
+
+    @Override
+    public int compareTo(Event o) {
+        return this.getDate().compareTo(o.getDate());
+    }
+
 }
